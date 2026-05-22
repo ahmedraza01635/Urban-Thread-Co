@@ -31,7 +31,7 @@ import {
 } from "../context/ProductContext";
 
 const FeaturedProducts = () => {
-
+  
 
   const [
     categories,
@@ -103,36 +103,64 @@ const FeaturedProducts = () => {
     );
 
   const filteredProducts =
-    products.filter(
-      (product) => {
 
-        const matchesSearch =
-          product.title
-            ?.toLowerCase()
-            .includes(
-              search.toLowerCase()
-            );
+[...products]
 
-        const matchesCategory =
+.sort(
 
-          selectedCategory === ""
+(a,b)=>
 
-            ?
+(
 
-            true
+b.createdAt?.seconds || 0
 
-            :
+)
 
-            product.category ===
-            selectedCategory;
+-
 
-        return (
-          matchesSearch &&
-          matchesCategory
-        );
+(
 
-      }
-    );
+a.createdAt?.seconds || 0
+
+)
+
+)
+
+.filter(
+
+(product)=>{
+
+const matchesSearch =
+
+product.title
+?.toLowerCase()
+.includes(
+search.toLowerCase()
+);
+
+const matchesCategory =
+
+selectedCategory === ""
+
+?
+
+true
+
+:
+
+product.category ===
+selectedCategory;
+
+return (
+
+matchesSearch &&
+matchesCategory
+
+);
+
+}
+
+);
 
   return (
 
