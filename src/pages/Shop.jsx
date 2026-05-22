@@ -3,6 +3,16 @@ import React, {
   useState,
   useEffect,
 } from "react";
+import {
+  collection,
+  getDocs
+  }
+  from "firebase/firestore";
+  
+  import {
+  db
+  }
+  from "../firebase";
 
 import { Link } from "react-router-dom";
 
@@ -10,6 +20,48 @@ import { ProductContext }
 from "../context/ProductContext";
 
 const Shop = () => {
+
+
+  const [
+    categories,
+    setCategories
+    ]
+    =
+    useState([]);
+    
+    useEffect(()=>{
+    
+    const fetchCategories =
+    async()=>{
+    
+    const snap =
+    await getDocs(
+    collection(
+    db,
+    "categories"
+    )
+    );
+    
+    setCategories(
+    
+    snap.docs.map(
+    (doc)=>({
+    
+    id:
+    doc.id,
+    
+    ...doc.data()
+    
+    })
+    )
+    
+    );
+    
+    };
+    
+    fetchCategories();
+    
+    },[]);
 
   const { products } =
     useContext(ProductContext);
@@ -46,20 +98,16 @@ const Shop = () => {
   const productsPerPage = 8;
 
   // Categories
-  const categories = [
+  const categoryOptions = [
 
     "All",
-
-    ...new Set(
-      products
-        .map(
-          (item) =>
-            item.category
-        )
-        .filter(Boolean)
+    
+    ...categories.map(
+    (cat)=>
+    cat.name
     ),
-
-  ];
+    
+    ];
 
   // Filter
   const filteredProducts =
@@ -231,7 +279,7 @@ py-3
 
 {
 
-categories.map(
+categoryOptions.map(
 (cat)=>(
 
 <option
