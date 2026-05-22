@@ -160,7 +160,7 @@ lg:order-2
 >
 
 <img
-src="/Hero.jpg"
+src="/hero.jpg"
 alt="Women Fashion"
 className="
 w-full
