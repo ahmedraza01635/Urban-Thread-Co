@@ -1,7 +1,18 @@
 import React, {
   useContext,
   useState,
+  useEffect
 } from "react";
+import {
+  collection,
+  getDocs
+  }
+  from "firebase/firestore";
+  
+  import {
+  db
+  }
+  from "../firebase";
 
 import {
   Link,
@@ -20,6 +31,53 @@ import {
 } from "../context/ProductContext";
 
 const FeaturedProducts = () => {
+
+
+  const [
+    categories,
+    setCategories
+    ] =
+    useState([]);
+    
+    useEffect(()=>{
+    
+    const fetchCategories =
+    async()=>{
+    
+    try{
+    
+    const snap =
+    await getDocs(
+    collection(
+    db,
+    "categories"
+    )
+    );
+    
+    setCategories(
+    
+    snap.docs.map(
+    (doc)=>(
+    doc.data().name
+    )
+    
+    )
+    
+    );
+    
+    }
+    
+    catch(err){
+    
+    console.log(err);
+    
+    }
+    
+    };
+    
+    fetchCategories();
+    
+    },[]);
 
   const [search, setSearch] =
     useState("");
@@ -142,36 +200,24 @@ const FeaturedProducts = () => {
             </option>
 
             {
-              [
-                ...new Set(
-                  products.map(
-                    p =>
-                      p.category
-                  )
-                ),
-              ].map(
-                (
-                  category
-                ) => (
 
-                  <option
-                    key={
-                      category
-                    }
-                    value={
-                      category
-                    }
-                  >
+categories.map(
+(category)=>(
 
-                    {
-                      category
-                    }
+<option
+key={category}
+value={category}
+>
 
-                  </option>
+{category}
 
-                )
-              )
-            }
+</option>
+
+)
+
+)
+
+}
 
           </select>
 
