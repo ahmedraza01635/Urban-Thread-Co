@@ -4,48 +4,129 @@ import React from "react";
 
 const Hero = () => {
   return (
-    <section className="bg-[#fdf6f2]">
-      <div className="container mx-auto px-6 py-16 md:py-24 flex flex-col-reverse md:flex-row items-center gap-12">
+    <section className="relative overflow-hidden">
 
-        {/* Left Content */}
-        <div className="flex-1 text-center md:text-left">
-          <p className="uppercase tracking-[4px] text-sm text-pink-500 mb-4">
-            New Fashion Collection
-          </p>
+<div className="grid lg:grid-cols-2 min-h-[85vh]">
 
-          <h1 className="text-4xl md:text-6xl font-bold leading-tight text-gray-900">
-            Discover Your <br />
-            Perfect Style
-          </h1>
+{/* LEFT */}
 
-          <p className="text-gray-600 mt-6 max-w-lg">
-            Explore trendy women’s fashion including dresses, tops,
-            handbags, accessories, and more designed for modern elegance.
-          </p>
+<div className="flex flex-col justify-center px-8 lg:px-20 py-20 bg-[#faf7f3]">
 
-          <div className="mt-8 flex flex-col sm:flex-row gap-4 justify-center md:justify-start">
-            
-            <button className="bg-black text-white px-8 py-3 rounded-full hover:bg-gray-800 transition">
-              Shop Now
-            </button>
+<p className="uppercase tracking-[6px] text-pink-500 text-sm mb-4">
 
-            <button className="border border-black px-8 py-3 rounded-full hover:bg-black hover:text-white transition">
-              View Collection
-            </button>
+Urban Thread Co
 
-          </div>
-        </div>
+</p>
 
-        {/* Right Image */}
-        <div className="flex-1 flex justify-center">
-          <img
-            src="https://images.unsplash.com/photo-1496747611176-843222e1e57c?q=80&w=1200&auto=format&fit=crop"
-            alt="Women's Fashion"
-            className="w-full max-w-lg rounded-[30px] shadow-2xl object-cover"
-          />
-        </div>
-      </div>
-    </section>
+<h1 className="text-5xl lg:text-7xl font-bold leading-tight">
+
+Wear Your
+
+<span className="block text-pink-500">
+
+Style
+
+</span>
+
+Every Day
+
+</h1>
+
+<p className="mt-8 text-gray-600 text-lg max-w-xl">
+
+Discover premium women fashion —
+modern silhouettes, timeless essentials
+and everyday elegance.
+
+</p>
+
+<div className="flex gap-5 mt-10">
+
+<button
+className="
+bg-black
+text-white
+px-8
+py-4
+rounded-full
+hover:scale-105
+transition
+"
+>
+
+Shop Now
+
+</button>
+
+<button
+className="
+border
+px-8
+py-4
+rounded-full
+hover:bg-white
+transition
+"
+>
+
+New Collection
+
+</button>
+
+</div>
+
+</div>
+
+{/* RIGHT */}
+
+<div className="relative">
+
+<img
+
+src="/hero.jpg"
+
+alt="Women Fashion"
+
+className="
+w-full
+h-full
+object-cover
+"
+
+/>
+
+<div
+className="
+absolute
+bottom-10
+left-10
+bg-white/90
+backdrop-blur
+p-6
+rounded-3xl
+shadow-xl
+"
+>
+
+<p className="text-sm text-gray-500">
+
+NEW ARRIVALS
+
+</p>
+
+<h3 className="text-2xl font-bold">
+
+Summer Collection
+
+</h3>
+
+</div>
+
+</div>
+
+</div>
+
+</section>
   );
 };
 
