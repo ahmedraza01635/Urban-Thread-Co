@@ -4,6 +4,7 @@ import React, {
   useContext,
   useState,
 } from "react";
+import logo from "../assets/ChatGPT Image May 19, 2026, 10_53_52 PM-no-bg.png";
 
 import { Link, useNavigate } from "react-router-dom";
 
