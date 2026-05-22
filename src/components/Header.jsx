@@ -75,7 +75,7 @@ const Header = () => {
         <Link to="/">
 
           <div >
-            <img src="src/assets/ChatGPT Image May 19, 2026, 10_53_52 PM-no-bg.png" alt="" className="h-16" />
+            <img src={logo} alt="" className="h-16" />
           </div>
 
         </Link>
