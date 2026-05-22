@@ -4,7 +4,6 @@ import React, {
   useContext,
   useState,
 } from "react";
-import logo from "../assets/ChatGPT Image May 19, 2026, 10_53_52 PM-no-bg.png";
 
 import { Link, useNavigate } from "react-router-dom";
 
@@ -67,7 +66,7 @@ const Header = () => {
 
   return (
 
-    <header className="bg-white shadow-md sticky top-0 z-50">
+    <header className="bg-black text-white shadow-md sticky top-0 z-50">
 
       <div className="container mx-auto flex items-center justify-between px-6 py-4">
 
@@ -75,38 +74,38 @@ const Header = () => {
         <Link to="/">
 
           <div >
-            <img src={logo} alt="" className="h-16" />
+            <img src="src/assets/ChatGPT Image May 19, 2026, 10_53_52 PM-no-bg.png" alt="" className="h-16" />
           </div>
 
         </Link>
 
         {/* DESKTOP NAV */}
-        <nav className="hidden lg:flex items-center gap-8">
+        <nav className="hidden lg:flex  items-center gap-8">
 
           <Link
             to="/"
-            className="text-gray-600 hover:text-black transition font-medium"
+            className="text-white hover:text-yellow-500 transition font-medium"
           >
             Home
           </Link>
 
           <Link
             to="/shop"
-            className="text-gray-600 hover:text-black transition font-medium"
+            className="text-white hover:text-yellow-500 transition font-medium"
           >
             Shop
           </Link>
 
           <Link
             to="/about"
-            className="text-gray-600 hover:text-black transition font-medium"
+            className="text-white hover:text-yellow-500 transition font-medium"
           >
             About
           </Link>
 
           <Link
             to="/contact"
-            className="text-gray-600 hover:text-black transition font-medium"
+            className="text-white hover:text-yellow-500 transition font-medium"
           >
             Contact
           </Link>
