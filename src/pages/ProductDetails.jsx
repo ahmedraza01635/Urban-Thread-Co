@@ -248,6 +248,26 @@ mt-5
 
             </p>
             <p
+className="
+mt-8
+text-gray-600
+leading-8
+text-lg
+border-t
+pt-6
+"
+>
+
+{
+
+product.description ||
+
+"No description available"
+
+}
+
+</p>
+            <p
               className="
 mt-4
 text-lg
