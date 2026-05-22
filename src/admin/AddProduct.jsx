@@ -3,6 +3,10 @@ import React, {
   useState,
   useEffect
 } from "react";
+import {
+serverTimestamp
+}
+from "firebase/firestore";
 
 import {
   ProductContext,
@@ -196,6 +200,8 @@ const AddProduct = () => {
 
         reviews:
           [],
+        createdAt:
+serverTimestamp()
 
       };
 
