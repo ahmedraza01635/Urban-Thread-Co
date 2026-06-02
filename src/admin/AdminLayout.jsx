@@ -48,6 +48,14 @@ const AdminLayout = () => {
             Categories
 
           </Link>
+          <Link
+            to="/admin/brands"
+            className="hover:bg-white hover:text-black px-4 py-3 rounded-xl transition"
+          >
+
+            Brands
+
+          </Link>
 
         </nav>
 
