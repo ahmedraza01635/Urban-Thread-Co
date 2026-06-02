@@ -75,6 +75,62 @@ const AddProduct = () => {
       
       },[]);
 
+      const [
+        brand,
+        setBrand,
+        ] =
+        useState("");
+
+      const [
+        brands,
+        setBrands
+        ] =
+        useState([]);
+        
+        useEffect(()=>{
+        
+        const fetchBrands =
+        async()=>{
+        
+        try{
+        
+        const snap =
+        await getDocs(
+        collection(
+        db,
+        "brands"
+        )
+        );
+        
+        setBrands(
+        
+        snap.docs.map(
+        (doc)=>({
+        
+        id:
+        doc.id,
+        
+        ...doc.data()
+        
+        })
+        )
+        
+        );
+        
+        }
+        
+        catch(err){
+        
+        console.log(err);
+        
+        }
+        
+        };
+        
+        fetchBrands();
+        
+        },[]);
+
   const {
     setProducts,
   } =
@@ -167,6 +223,7 @@ const AddProduct = () => {
         !title ||
         !price ||
         !category ||
+        !brand ||
         !images.length
       ) {
 
@@ -190,6 +247,8 @@ const AddProduct = () => {
         images,
 
         category,
+
+        brand,
 
         description,
 
@@ -344,6 +403,47 @@ value={cat.name}
 >
 
 {cat.name}
+
+</option>
+
+)
+
+)
+
+}
+
+</select>
+<select
+value={brand}
+onChange={(e)=>
+setBrand(
+e.target.value
+)
+}
+className="
+w-full
+border
+p-4
+rounded-xl
+mb-5
+"
+>
+
+<option value="">
+Select Brand
+</option>
+
+{
+
+brands.map(
+(item)=>(
+
+<option
+key={item.id}
+value={item.name}
+>
+
+{item.name}
 
 </option>
 
