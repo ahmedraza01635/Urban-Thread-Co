@@ -27,6 +27,8 @@ import Cart from "./pages/Cart";
 import Checkout from "./pages/Checkout";
 import AdminOrders from "./admin/AdminOrders";
 import Wishlist from "./pages/Wishlist";
+import CollectionsPage
+  from "./pages/CollectionsPage";
 import Signup
   from "./pages/Signup";
 import Login from "./pages/Login";
@@ -34,6 +36,10 @@ import Profile
   from "./pages/Profile";
 import AdminCategories
   from "./admin/AdminCategories";
+import SingleCollection
+  from "./pages/SingleCollection";
+import AdminBrands
+  from "./admin/AdminBrands";
 
 
 function App() {
@@ -73,7 +79,27 @@ function App() {
             </>
           }
         />
-       
+        <Route
+          path="/collections/:name"
+          element={
+            <>
+              <Header />
+              <SingleCollection />
+              <Footer />
+            </>
+          }
+        />
+        <Route
+          path="/collections"
+          element={
+            <>
+              <Header />
+              <CollectionsPage />
+              <Footer />
+            </>
+          }
+        />
+
         <Route
           path="/signup"
           element={<Signup />}
@@ -177,11 +203,15 @@ function App() {
             element={<AdminOrders />}
           />
           <Route
-          path="categories"
-          element={
-            <AdminCategories />
-          }
-        />
+            path="brands"
+            element={<AdminBrands />}
+          />
+          <Route
+            path="categories"
+            element={
+              <AdminCategories />
+            }
+          />
 
 
         </Route>
@@ -189,7 +219,7 @@ function App() {
           path="/admin-login"
           element={<AdminLogin />}
         />
-         
+
 
       </Routes>
 
