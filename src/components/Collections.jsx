@@ -81,9 +81,7 @@ import React,{
     <div className="container mx-auto px-6">
     
     {/* HEADING */}
-        <h1 className="text-5xl">
-Collections Working
-</h1>
+      
     
     <div className="text-center mb-14">
     
