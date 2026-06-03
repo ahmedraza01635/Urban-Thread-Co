@@ -74,6 +74,15 @@ const AddProduct = () => {
       fetchCategories();
       
       },[]);
+      const [colors, setColors] = useState([""]);
+      const addColor = () => {
+        setColors([...colors, ""]);
+      };
+      const updateColor = (index, value) => {
+        const updated = [...colors];
+        updated[index] = value;
+        setColors(updated);
+      };
 
       const [
         brand,
@@ -246,6 +255,8 @@ const AddProduct = () => {
 
         images,
 
+        colors: colors.filter(c => c.trim() !== ""),
+
         category,
 
         brand,
@@ -413,6 +424,32 @@ value={cat.name}
 }
 
 </select>
+<h3 className="font-bold mb-3">
+Product Colors
+</h3>
+
+{
+colors.map((color,index)=>(
+<input
+key={index}
+type="text"
+placeholder="Color Name"
+value={color}
+onChange={(e)=>
+updateColor(index,e.target.value)
+}
+className="w-full border rounded-xl px-4 py-3 mb-3"
+/>
+))
+}
+
+<button
+type="button"
+onClick={addColor}
+className="bg-black text-white px-5 py-2 rounded-xl"
+>
+Add Color
+</button>
 <select
 value={brand}
 onChange={(e)=>
