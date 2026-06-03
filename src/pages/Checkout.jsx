@@ -5,55 +5,56 @@ import { OrderContext } from "../context/OrderContext";
 import { useNavigate } from "react-router-dom";
 import {
   ProductContext
-  }
+}
   from "../context/ProductContext";
-  import emailjs
-from
-"@emailjs/browser";
+import emailjs
+  from
+  "@emailjs/browser";
 
 
 import {
   collection,
   addDoc,
   doc,
-updateDoc
-  } from "firebase/firestore";
-  
-  import { db }
+  updateDoc
+} from "firebase/firestore";
+
+import { db }
   from "../firebase";
-  emailjs.init(
-    "nHrW18x3byOsyWN-A"
-    );
+emailjs.init(
+  "nHrW18x3byOsyWN-A"
+);
 
 const Checkout = () => {
 
 
   const {
     products
-    }
+  }
     =
     useContext(
-    ProductContext
+      ProductContext
     );
 
-    const { orders, setOrders } =
-  useContext(OrderContext);
+  const { orders, setOrders } =
+    useContext(OrderContext);
 
-const navigate = useNavigate();
+  const navigate = useNavigate();
 
-const {
-  cartItems,
-  setCartItems,
+  const {
+    cartItems,
+    setCartItems,
   } =
-  useContext(
-  CartContext
-  );
+    useContext(
+      CartContext
+    );
 
   const [name, setName] = useState("");
   const [email, setEmail] =
     useState("");
   const [address, setAddress] =
     useState("");
+  const [phone, setPhone] = useState("");
 
   const totalPrice = cartItems.reduce(
     (total, item) =>
@@ -61,191 +62,194 @@ const {
       Number(
         item.price.replace("$", "")
       ) *
-        item.quantity,
+      item.quantity,
     0
   );
 
   const handleOrder = async (e) => {
 
     e.preventDefault();
-    
-    if (
-    !name ||
-    !email ||
-    !address
-    ){
-    
-    toast.error(
-    "Fill all fields"
-    );
-    
-    return;
-    
-    }
-    
-    for (
-    const item
-    of cartItems
-    ){
-    
-    const product =
-    products.find(
-    (p)=>
-    p.id === item.id
-    );
-    
-    if (
-    
-    !product ||
-    
-    item.quantity >
-    (product.stock || 0)
-    
-    ){
-    
-    toast.error(
-    `${item.title} is out of stock`
-    );
-    
-    return;
-    
-    }
-    
-    }
-    
-    try {
-    
-    const newOrder = {
-    
-    customer:{
-    name,
-    email,
-    address,
-    },
-    
-    items:
-    cartItems,
-    
-    total:
-    totalPrice,
-    
-    status:
-    "Pending",
-    
-    createdAt:
-    Date.now(),
-    
-    };
-    
-    // SAVE ORDER
-    await addDoc(
-    collection(
-    db,
-    "orders"
-    ),
-    newOrder
-    );
-    
-    // UPDATE STOCK
-    for (
-    const cartItem
-    of cartItems
-    ){
-    
-    const product =
-    products.find(
-    (p)=>
-    p.id === cartItem.id
-    );
-    
-    if(product){
-    
-    await updateDoc(
-    
-    doc(
-    db,
-    "products",
-    product.id
-    ),
-    
-    {
-    stock:
-    
-    Math.max(
-    0,
-    (product.stock || 0)
-    -
-    cartItem.quantity
-    )
-    
-    }
-    
-    );
-    
-    }
-    
-    }
-    
-    // SEND EMAIL
-    await emailjs.send(
-    
-    "service_o8lk3z4",
-    
-    "template_8uadbq8",
-    
-    {
-    
-    customer_name:
-    name,
-    
-    customer_email:
-    email,
-    
-    order_total:
-    String(totalPrice),
-    
-    order_address:
-    address,
-    
-    },
 
-    
-    "nHrW18x3byOsyWN-A"
-    
-    );
-    
-    setOrders([
-    ...orders,
-    newOrder
-    ]);
-    
-    setCartItems([]);
-    
-    localStorage.setItem(
-    "cart",
-    JSON.stringify([])
-    );
-    
-    toast.success(
-    "Order Placed"
-    );
-    
-    navigate("/");
-    
+    if (
+      !name ||
+      !email ||
+      !address ||
+      !phone
+    ) {
+
+      toast.error(
+        "Fill all fields"
+      );
+
+      return;
+
     }
-    
-    catch(err){
-    
-    console.log(err);
-    
-    toast.error(
-    "Order Failed"
-    );
-    
+
+    for (
+      const item
+      of cartItems
+    ) {
+
+      const product =
+        products.find(
+          (p) =>
+            p.id === item.id
+        );
+
+      if (
+
+        !product ||
+
+        item.quantity >
+        (product.stock || 0)
+
+      ) {
+
+        toast.error(
+          `${item.title} is out of stock`
+        );
+
+        return;
+
+      }
+
     }
-    
-    };
-      
+
+    try {
+
+      const newOrder = {
+
+        customer: {
+          name,
+          email,
+          phone,
+          address,
+        },
+
+        items:
+          cartItems,
+
+        total:
+          totalPrice,
+
+        status:
+          "Pending",
+
+        createdAt:
+          Date.now(),
+
+      };
+
+      // SAVE ORDER
+      await addDoc(
+        collection(
+          db,
+          "orders"
+        ),
+        newOrder
+      );
+
+      // UPDATE STOCK
+      for (
+        const cartItem
+        of cartItems
+      ) {
+
+        const product =
+          products.find(
+            (p) =>
+              p.id === cartItem.id
+          );
+
+        if (product) {
+
+          await updateDoc(
+
+            doc(
+              db,
+              "products",
+              product.id
+            ),
+
+            {
+              stock:
+
+                Math.max(
+                  0,
+                  (product.stock || 0)
+                  -
+                  cartItem.quantity
+                )
+
+            }
+
+          );
+
+        }
+
+      }
+
+      // SEND EMAIL
+      await emailjs.send(
+
+        "service_o8lk3z4",
+
+        "template_8uadbq8",
+
+        {
+
+          customer_name:
+            name,
+
+          customer_email:
+            email,
+          customer_phone: phone,
+
+          order_total:
+            String(totalPrice),
+
+          order_address:
+            address,
+
+        },
+
+
+        "nHrW18x3byOsyWN-A"
+
+      );
+
+      setOrders([
+        ...orders,
+        newOrder
+      ]);
+
+      setCartItems([]);
+
+      localStorage.setItem(
+        "cart",
+        JSON.stringify([])
+      );
+
+      toast.success(
+        "Order Placed"
+      );
+
+      navigate("/");
+
+    }
+
+    catch (err) {
+
+      console.log(err);
+
+      toast.error(
+        "Order Failed"
+      );
+
+    }
+
+  };
+
   return (
     <section className="min-h-screen bg-gray-100 py-16">
 
@@ -303,6 +307,30 @@ const {
                 placeholder="Enter email"
               />
 
+            </div>
+            <div className="mb-6">
+            <label className="block mb-2 font-semibold">
+                Phone number
+              </label>
+
+            <input
+              type="tel"
+              placeholder="WhatsApp Number"
+              value={phone}
+              onChange={(e) =>
+                setPhone(
+                  e.target.value
+                )
+              }
+              className="
+w-full
+border
+rounded-xl
+px-4
+py-3
+mb-5
+"
+            />
             </div>
 
             {/* Address */}
