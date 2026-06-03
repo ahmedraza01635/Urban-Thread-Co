@@ -289,6 +289,24 @@ import React,{
   }
   
   </p>
+  <p>
+
+Phone:
+
+{
+
+order.customer?.phone
+||
+
+order.phone
+||
+
+"Not Provided"
+
+}
+
+</p>
+  
   
   <p>
   
