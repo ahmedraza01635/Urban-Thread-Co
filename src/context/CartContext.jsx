@@ -31,69 +31,60 @@ import React, {
   
     // ADD TO CART
     const addToCart = (product) => {
-
-        const existingProduct = cartItems.find(
-          (item) => item.id === product.id
+      const existingProduct = cartItems.find(
+        (item) => item.id === product.id
+      );
+    
+      if (existingProduct) {
+        const updatedCart = cartItems.map((item) =>
+          item.id === product.id
+            ? {
+                ...item,
+                quantity: item.quantity + 1,
+                selectedColor: product.selectedColor || item.selectedColor, // 🔥 FIX
+              }
+            : item
         );
-      
-        if (existingProduct) {
-      
-          const updatedCart = cartItems.map(
-            (item) =>
-              item.id === product.id
-                ? {
-                    ...item,
-                    quantity: item.quantity + 1,
-                  }
-                : item
-          );
-      
-          setCartItems(updatedCart);
-      
-        } else {
-      
-          setCartItems([
-            ...cartItems,
-            {
-              ...product,
-              quantity: 1,
-            },
-          ]);
-      
-        }
-      };
-      const increaseQuantity = (id) => {
-
-        const updatedCart = cartItems.map(
-          (item) =>
-            item.id === id
-              ? {
-                  ...item,
-                  quantity: item.quantity + 1,
-                }
-              : item
-        );
-      
+    
         setCartItems(updatedCart);
-      };
+      } else {
+        setCartItems([
+          ...cartItems,
+          {
+            ...product,
+            quantity: 1,
+            selectedColor: product.selectedColor || "", // 🔥 FIX
+          },
+        ]);
+      }
+    };
+    const increaseQuantity = (id) => {
+      const updatedCart = cartItems.map((item) =>
+        item.id === id
+          ? {
+              ...item,
+              quantity: item.quantity + 1,
+              selectedColor: item.selectedColor, // 🔥 KEEP SAFE
+            }
+          : item
+      );
+    
+      setCartItems(updatedCart);
+    };
       
-      const decreaseQuantity = (id) => {
-      
-        const updatedCart = cartItems.map(
-          (item) =>
-            item.id === id
-              ? {
-                  ...item,
-                  quantity:
-                    item.quantity > 1
-                      ? item.quantity - 1
-                      : 1,
-                }
-              : item
-        );
-      
-        setCartItems(updatedCart);
-      };
+    const decreaseQuantity = (id) => {
+      const updatedCart = cartItems.map((item) =>
+        item.id === id
+          ? {
+              ...item,
+              quantity: item.quantity > 1 ? item.quantity - 1 : 1,
+              selectedColor: item.selectedColor, // 🔥 KEEP SAFE
+            }
+          : item
+      );
+    
+      setCartItems(updatedCart);
+    };
   
     // REMOVE
     const removeFromCart = (id) => {
