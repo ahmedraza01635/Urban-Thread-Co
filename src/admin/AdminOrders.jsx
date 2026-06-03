@@ -289,6 +289,7 @@ import React,{
   }
   
   </p>
+  
   <p>
 
 Phone:
@@ -359,6 +360,7 @@ order.phone
   item.title
   }
   
+  
   className="
   w-20
   h-20
@@ -380,6 +382,9 @@ order.phone
   item.title
   }
   
+  <p>
+  Color: {item.selectedColor}
+</p>
   </h3>
   
   <p>
